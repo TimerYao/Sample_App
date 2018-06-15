@@ -210,3 +210,11 @@ join 方法。
     => "ofbora"
     >>
 ```
+
+ruby 类
+引入bootstrap gem包添加 css样式，
+Sass 和 Asset Pipeline（静态资源目录，清单文件，预处理器引擎）
+链接路由，
+完善实例应用
+
+
