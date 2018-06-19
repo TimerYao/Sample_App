@@ -228,6 +228,7 @@ Sass 和 Asset Pipeline（静态资源目录，清单文件，预处理器引擎
  内置的 has_secure_password 方法在模型中添加一个安全的密码
  debugger 调试
  form_for 创建表单
+ 注册和登录退出的实现
 7.1.1 练习
 在 Rails 控制台中获取数据库中的第一个用户，把它赋值给 user 变量。puts user.attributes.to_yaml
 的输出是什么？y user.attributes 的输出呢？

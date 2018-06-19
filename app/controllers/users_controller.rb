@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     if @user.save
         # 处理注册成功的情况
         # redirect_to @user
+        log_in @user
         flash[:success] = "Welcome to the Sample App!"
         redirect_to user_url(@user)
     else
