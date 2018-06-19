@@ -4,10 +4,31 @@ module SessionsHelper
         session[:user_id] = user.id
     end
 
-    # 返回当前登录的用户
-    def current_user
-        @current_user ||= User.find_by(id: session[:user_id])
+    #  记住用户
+    def remember(user)
+        user.remember
+        cookies.permanent.signed[:user_id] = user.id
+        cookies.permanent[:remember_token] = user.remember_token
     end
+
+    #signed`方法默认既签名也加密。permanent 持久存储
+    # 返回 cookie 中记忆令牌对应的用户
+    def current_user
+        if (user_id = session[:user_id])
+            @current_user ||= User.find_by(id: user_id)
+            # 如果会话中有用户id 就赋值给user_id,否则则跳转登录
+        elsif (user_id = cookies.signed[:user_id])
+            user = User.find_by(id: user_id)
+            if user && user.authenticated?(cookies[:remember_token])
+                log_in user
+                @current_user = user
+            end
+        end
+    end
+    # #返回当前登录的用户
+    # def current_user
+    #     @current_user ||= User.find_by(id: session[:user_id])
+    # end
 
     # 已登录返回true else false
 
@@ -15,8 +36,19 @@ module SessionsHelper
         !current_user.nil?
     end
 
+    # 忘记持久会话
+
+    def forget(user)
+        user.forget
+        cookies.delete(:user_id)
+        cookies.delete(:remember_token)
+    end
+
+    # 退出
     def log_out
+        forget(current_user)
         session.delete(:user_id)
         @current_user = nil
     end
+
 end
