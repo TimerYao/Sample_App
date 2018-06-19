@@ -218,3 +218,7 @@ Sass 和 Asset Pipeline（静态资源目录，清单文件，预处理器引擎
 完善实例应用
 
 
+
+ ["Name is too long (maximum is 50 characters)", "Email is too long (maximum is 255 characters)"]
+ ["Password can't be blank"]
+ ["Password is too short (minimum is 6 characters)"]
