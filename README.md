@@ -222,3 +222,31 @@ Sass 和 Asset Pipeline（静态资源目录，清单文件，预处理器引擎
  ["Name is too long (maximum is 50 characters)", "Email is too long (maximum is 255 characters)"]
  ["Password can't be blank"]
  ["Password is too short (minimum is 6 characters)"]
+
+ 数据库索引
+ 数据验证
+ 内置的 has_secure_password 方法在模型中添加一个安全的密码
+ debugger 调试
+ form_for 创建表单
+7.1.1 练习
+在 Rails 控制台中获取数据库中的第一个用户，把它赋值给 user 变量。puts user.attributes.to_yaml
+的输出是什么？y user.attributes 的输出呢？
+       # 结果一样
+```ruby
+    >> puts user.attributes.to_yaml
+    ---
+    id: 1
+    name: Yaozhijie
+    email: yaozj@bcenv.com
+    created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-06-19 03:13:39.083888000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+        name: Etc/UTC
+    time: *1
+    updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2018-06-19 03:13:39.083888000 Z
+    zone: *2
+    time: *3
+    password_digest: "$2a$10$jGKT33zkZ7aZ/Ang5qiRdOQYTZyUG0ZIr/Vlqt99tauo1X9zUy0CS"
+
+```
