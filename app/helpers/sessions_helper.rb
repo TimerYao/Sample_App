@@ -11,6 +11,11 @@ module SessionsHelper
         cookies.permanent[:remember_token] = user.remember_token
     end
 
+     #返回当前登录的用户
+    def current_user?(user)
+       user == current_user
+    end
+
     #signed`方法默认既签名也加密。permanent 持久存储
     # 返回 cookie 中记忆令牌对应的用户
     def current_user
@@ -25,10 +30,7 @@ module SessionsHelper
             end
         end
     end
-    # #返回当前登录的用户
-    # def current_user
-    #     @current_user ||= User.find_by(id: session[:user_id])
-    # end
+   
 
     # 已登录返回true else false
 
@@ -51,4 +53,13 @@ module SessionsHelper
         @current_user = nil
     end
 
+    # 重定向到存储地址或者默认地址
+    def redirect_back_or(defalut)
+        redirect_to(session[:forwarding_url] || defalut)
+        session.delete(:forwarding_url)
+    end
+    # 存储后面需要用的地址
+    def store_location
+        session[:forwarding_url] = request.original_url if request.get?
+    end
 end
