@@ -31,10 +31,11 @@ class User < ApplicationRecord
     end
 
     # 比较摘要和令牌，如果指定令牌和摘要匹配。返回true
-    def authenticated?(remember_token)
-        return false if(remember_digest.nil?)
+    def authenticated?(attribute, token)
+        digest = send("#{attribute}_digest")
+        return false if digest.nil?
         # 如果记忆摘要为空 返回false
-        BCrypt::Password.new(remember_digest).is_password?(remember_token)
+        BCrypt::Password.new(digest).is_password?(token)
     end
 
     #  忘记用户
@@ -42,6 +43,17 @@ class User < ApplicationRecord
         update_attribute(:remember_digest, nil)
     end
 
+    # 激活账户
+    def activate
+        # update_attribute(:activated, true)
+        # update_attribute(:activated_at, Time.zone.now)
+        update_columns(activated: true,activated_at: Time.zone.now)
+    end
+    # 发送激活邮箱
+    def send_activation_email
+        UserMailer.account_activation(self).deliver_now
+    end
+    
     private
       #    电子邮箱转换为小写
     def downcase_email
