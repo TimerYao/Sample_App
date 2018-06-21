@@ -24,7 +24,7 @@ module SessionsHelper
             # 如果会话中有用户id 就赋值给user_id,否则则跳转登录
         elsif (user_id = cookies.signed[:user_id])
             user = User.find_by(id: user_id)
-            if user && user.authenticated?(cookies[:remember_token])
+            if user && user.authenticated?(:remember, cookies[:remember_token])
                 log_in user
                 @current_user = user
             end
