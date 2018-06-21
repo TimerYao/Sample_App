@@ -253,3 +253,7 @@ Sass 和 Asset Pipeline（静态资源目录，清单文件，预处理器引擎
     password_digest: "$2a$10$jGKT33zkZ7aZ/Ang5qiRdOQYTZyUG0ZIr/Vlqt99tauo1X9zUy0CS"
 
 ```
+>>  CGI.escape('foo@example.com')
+=> "foo%40example.com"
+>> CGI.escape("Dont't panic!")
+=> "Dont%27t+panic%21"
