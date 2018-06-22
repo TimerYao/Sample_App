@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+    has_many :microposts, dependent: :destroy
+    # 删除用户也删除微博
     attr_accessor :remember_token, :activation_token, :reset_token
     # before_save { self.email = email.downcase }
     before_save :downcase_email
@@ -73,6 +75,10 @@ class User < ApplicationRecord
         reset_sent_at < 2.hours.ago
     end
 
+    # 动态流原型
+    def feed
+        Micropost.where("user_id= ?",id)
+    end
 
     private
       #    电子邮箱转换为小写
